@@ -33,20 +33,46 @@ const NonInjectedClusterFrameLayout = observer((props: Dependencies) => {
   const current = props.currentPath.get();
 
   return (
-    <MainLayout sidebar={<Sidebar />} footer={<Dock />}>
-      {Component ? (
-        <Component />
-      ) : // NOTE: this check is to prevent an infinite loop
-      starting !== current ? (
-        <Redirect to={starting} />
-      ) : (
-        <div className={styles.centering}>
-          <div className="error">
-            An error has occurred. No route can be found matching the current route, which is also the starting route.
+    <div style={{ display: 'flex', height: '100vh' }}>
+      <MainLayout sidebar={<Sidebar />} footer={<Dock />}>
+        {Component ? (
+          <Component />
+        ) : // NOTE: this check is to prevent an infinite loop
+        starting !== current ? (
+          <Redirect to={starting} />
+        ) : (
+          <div className={styles.centering}>
+            <div className="error">
+              An error has occurred. No route can be found matching the current route, which is also the starting route.
+            </div>
           </div>
+        )}
+      </MainLayout>
+      <div style={{ 
+        width: '300px', 
+        backgroundColor: '#ff0000', 
+        color: '#fff', 
+        padding: '20px',
+        borderLeft: '2px solid #fff',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start'
+      }}>
+        <h2>RIGHT SIDEBAR</h2>
+        <p>✅ This is working!</p>
+        <p>📍 Location: Cluster Frame</p>
+        <p>🎯 Status: Active</p>
+        <div style={{ marginTop: '20px' }}>
+          <p>Future features:</p>
+          <ul>
+            <li>Cluster info</li>
+            <li>Resource summary</li>
+            <li>Quick actions</li>
+          </ul>
         </div>
-      )}
-    </MainLayout>
+      </div>
+    </div>
   );
 });
 

@@ -7,10 +7,10 @@
 .mainLayout {
   display: grid;
   grid-template-areas:
-    "sidebar contents"
-    "sidebar footer";
+    "sidebar contents rightSidebar"
+    "sidebar footer rightSidebar";
   grid-template-rows: [contents] 1fr [footer] auto;
-  grid-template-columns: [sidebar] var(--sidebar-width) [contents] 1fr;
+  grid-template-columns: [sidebar] var(--sidebar-width) [contents] 1fr [rightSidebar] var(--right-sidebar-width, 200px);
   width: 100%;
   z-index: 1;
   height: 100%;
@@ -24,7 +24,43 @@
 }
 
 .contents {
+  grid-area: contents;
   overflow: hidden;
+}
+
+.rightSidebar {
+  grid-area: rightSidebar;
+  display: flex;
+  position: relative;
+  background: var(--sidebarBackground);
+  border-left: 1px solid var(--borderColor);
+  min-width: 200px;
+  width: 200px;
+}
+
+.rightSidebarContent {
+  padding: 16px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.rightSidebarPlaceholder {
+  color: var(--textColorSecondary);
+  font-size: 14px;
+}
+
+.rightSidebarTitle {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--textColorPrimary);
+}
+
+.rightSidebarDescription {
+  opacity: 0.8;
+  line-height: 1.4;
 }
 
 .footer {

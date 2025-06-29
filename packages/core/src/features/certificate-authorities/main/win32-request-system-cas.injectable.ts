@@ -6,7 +6,7 @@
 
 import { loggerInjectionToken } from "@freelensapp/logger/dist";
 import { getInjectable } from "@ogre-tools/injectable";
-import winCa from "win-ca/api";
+// import winCa from "win-ca/api";
 import { platformSpecificRequestSystemCAsInjectionToken } from "../common/request-system-cas-token";
 
 const win32RequestSystemCAsInjectable = getInjectable({
@@ -17,9 +17,10 @@ const win32RequestSystemCAsInjectable = getInjectable({
       const logger = di.inject(loggerInjectionToken);
       return async () => {
         const certs = [] as string[];
-        for await (let cert of winCa({ format: winCa.der2.pem, generator: true, async: true })) {
-          certs.push(cert.toString());
-        }
+        // Temporarily disabled due to compilation issues
+        // for await (let cert of winCa({ format: winCa.der2.pem, generator: true, async: true })) {
+        //   certs.push(cert.toString());
+        // }
         logger.info(`[INJECT-CAS]: ${certs.length} CAs retrieved from system.`);
         return certs;
       };

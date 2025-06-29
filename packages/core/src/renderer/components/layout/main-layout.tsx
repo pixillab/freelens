@@ -3,11 +3,6 @@
  * Copyright (c) OpenLens Authors. All rights reserved.
  * Licensed under MIT License. See LICENSE in root directory for more information.
  */
-/**
- * Copyright (c) Freelens Authors. All rights reserved.
- * Copyright (c) OpenLens Authors. All rights reserved.
- * Licensed under MIT License. See LICENSE in root directory for more information.
- */
 
 import { ErrorBoundary } from "@freelensapp/error-boundary";
 import { ResizeDirection, ResizeGrowthDirection, ResizeSide, ResizingAnchor } from "@freelensapp/resizing-anchor";
@@ -28,6 +23,7 @@ export interface MainLayoutProps {
   className?: string;
   footer?: StrictReactNode;
   children?: StrictReactNode;
+  rightSidebar?: StrictReactNode;
 }
 
 /**
@@ -47,9 +43,13 @@ class NonInjectedMainLayout extends React.Component<MainLayoutProps & Dependenci
   };
 
   render() {
-    const { className, footer, children, sidebar } = this.props;
+    const { className, footer, children, sidebar, rightSidebar } = this.props;
     const { width: sidebarWidth } = this.props.sidebarStorage.get();
-    const style = { "--sidebar-width": `${sidebarWidth}px` } as React.CSSProperties;
+    const rightSidebarWidth = 200;
+    const style = { 
+      "--sidebar-width": `${sidebarWidth}px`,
+      "--right-sidebar-width": `${rightSidebarWidth}px`
+    } as React.CSSProperties;
 
     return (
       <div className={cssNames(styles.mainLayout, className)} style={style}>
@@ -69,6 +69,19 @@ class NonInjectedMainLayout extends React.Component<MainLayoutProps & Dependenci
 
         <div className={styles.contents}>
           <ErrorBoundary>{children}</ErrorBoundary>
+        </div>
+
+        <div className={styles.rightSidebar}>
+          <div className={styles.rightSidebarContent}>
+            {rightSidebar || (
+              <div className={styles.rightSidebarPlaceholder}>
+                <div className={styles.rightSidebarTitle}>Right Panel</div>
+                <div className={styles.rightSidebarDescription}>
+                  This panel is ready for additional content such as cluster information, resource details, or quick actions.
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className={styles.footer}>{footer}</div>

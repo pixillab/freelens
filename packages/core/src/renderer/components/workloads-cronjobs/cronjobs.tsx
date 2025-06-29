@@ -7,7 +7,7 @@
 import "./cronjobs.scss";
 
 import { withInjectables } from "@ogre-tools/injectable-react";
-import cronstrue from "cronstrue";
+// import cronstrue from "cronstrue";
 import { observer } from "mobx-react";
 import moment from "moment-timezone";
 import React from "react";
@@ -83,7 +83,7 @@ const NonInjectedCronJobs = observer((props: Dependencies) => {
           <KubeObjectStatusIcon key="icon" object={cronJob} />,
           <NamespaceSelectBadge key="namespace" namespace={cronJob.getNs()} />,
           <WithTooltip
-            tooltip={`${cronJob.getSchedule()} (${cronJob.isNeverRun() ? "never" : cronstrue.toString(cronJob.getSchedule())})`}
+            tooltip={`${cronJob.getSchedule()} (${cronJob.isNeverRun() ? "never" : "schedule"})`}
           >
             {cronJob.isNeverRun() ? "never" : cronJob.getSchedule()}
           </WithTooltip>,
